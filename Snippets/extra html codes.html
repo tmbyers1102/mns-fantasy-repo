@@ -1,0 +1,83 @@
+<!-- accordion attempt 07/09/2020 -->
+<!--Accordion wrapper-->
+<div class="accordion md-accordion accordion-blocks" id="accordionEx78" role="tablist"
+  aria-multiselectable="true">
+
+  <!-- Accordion card -->
+  <div class="card">
+    <!-- Card header -->
+    <div role="tab" id="headingUnfiled">
+      <!-- Heading -->
+      <a data-toggle="collapse" data-parent="#accordionEx78" href="#collapseUnfiled" aria-expanded="true"
+        aria-controls="collapseUnfiled">
+        <!-- Table responsive wrapper -->
+        <div class="table-responsive mx-3">
+          <!--Table-->
+          <table class="table table-hover mb-0">
+            <tbody>
+      {% for player in players %}
+        <tbody id="myTable">
+            <tr>
+              <td><a href="{% url 'players-detail' player.id %}">{{player.player_full}}</td>
+              <td>${{ player.player_sal_19_20|intcomma }}</td>
+              <td>${{ player.player_sal_20_21|intcomma }}</td>
+              <td>${{ player.player_sal_21_22|intcomma }}</td>
+              <td>${{ player.player_sal_22_23|intcomma }}</td>
+              <td>
+                  {% if player.player_owner == user %}
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Trade
+                              </button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Propose Trade</a>
+                                <a class="dropdown-item" href="#">Find Trade</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Report a bug!</a>
+                              </div>
+                            </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Release
+                              </button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'players-drop' player.id %}">Drop From Roster</a>
+                                <a class="dropdown-item" href="#">Schedule Drop</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Report a bug!</a>
+                              </div>
+                            </div>
+                        {% endif %}
+              </td>
+            </tr>
+        </tbody>
+      {% endfor %}
+            </tbody>
+          </table>
+          <!--Table-->
+        </div>
+        <!-- Table responsive wrapper -->
+      </a>
+    </div>
+
+    <!-- Card body -->
+    <div id="collapseUnfiled" class="collapse" role="tabpanel" aria-labelledby="headingUnfiled" data-parent="#accordionEx78">
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-2" style="background-color:yellow;">
+                    <img class="rounded-circle article-img" src="{{ player.image.url }}">
+                  </div>
+                  <div class="col-sm-10" style="background-color:orange;">66%
+                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- Accordion card -->
+</div>
+
+<!--/.Accordion wrapper-->
+<br>
