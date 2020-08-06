@@ -1,0 +1,140 @@
+{% load static %}
+{% load admin_list %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+
+    {% if title %}
+        <title>Briefs - {{ title }}</title>
+    {% else %}
+        <title>M N S</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+      <nav id="grad1" class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">
+              <font color="#25ee56">Money Never Sleeps</font></a><br>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+              <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+              <a class="nav-item nav-link" href="{% url 'blog-players' %}">Free Agents</a>
+            <div class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                League teams
+              </a>
+                <div class="dropdown-menu">
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/{{ user }}">Logged in as <kbd>{{ user }}</kbd></a>
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/Adam">Adam   <span id="num_players_badge" class="badge">#</span></a>
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/Bill">Bill   <span id="num_players_badge" class="badge">#</span></a>
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/Calvin">Calvin   <span id="num_players_badge" class="badge">#</span></a>
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/Dean">Dean   <span id="num_players_badge" class="badge">#</span></a>
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/Fatty">Fatty   <span id="num_players_badge" class="badge">#</span></a>
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/George">George   <span id="num_players_badge" class="badge">#</span></a>
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/Amy">Amy   <span id="num_players_badge" class="badge">#</span></a>
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/Zeb">Zeb   <span id="num_players_badge" class="badge">#</span></a>
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/Gump">Gump   <span id="num_players_badge" class="badge">#</span></a>
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/TomByers">TomByers   <span id="num_players_badge" class="badge">/15</span></a>
+                      <a class="dropdown-item" href="http://www.munleyfantasy.com/user_players/admin/">Admin</a>
+                </div>
+            </div>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if user.is_authenticated %}
+                  <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+                  <a class="nav-item nav-link" href="{% url 'profile' %}">Team Profile</a>
+                  <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+              {% else %}
+                  <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                  <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-12">
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+          {% endif %}
+          {% block content %}{% endblock %}
+
+          {% include 'blog/js.html' %}
+            <script>
+            $(document).ready(function(){
+              {% block jquery %}{% endblock %}
+            })
+            </script>
+        </div>
+      </div>
+    </main>
+
+<!-- footer -->
+    <div id="grad1" class="d-flex flex-row align-items-center footer boarder-top text-white shadow-lg">
+        <p class="m-auto"><font color="#25ee56">MONEY NEVER SLEEPS</font> | <small>Powered by:</small> The 4th Street Group®</p>
+    </div>
+
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+</body>
+
+</html>
+
+
+<!--
+# This is the perm side nave container that had all the team names. It got in the way and made the FA page columns
+hard to sort. Removed 07/07/2020
+<div class="col-md-4">
+            <h6>Logged in as <kbd>{{ user }}</kbd></h6>
+          <div class="content-section">
+            <h3>League Teams</h3>
+              <div class="list-group">
+                <a href="http://127.0.0.1:8000/user_players/Adam" class="list-group-item list-group-item-action">Adam</a>
+                <a href="http://127.0.0.1:8000/user_players/Bill" class="list-group-item list-group-item-action">Bill</a>
+                <a href="http://127.0.0.1:8000/user_players/Calvin" class="list-group-item list-group-item-action">Calvin</a>
+                <a href="http://127.0.0.1:8000/user_players/Dean" class="list-group-item list-group-item-action">Dean</a>
+                <a href="http://127.0.0.1:8000/user_players/Edgar" class="list-group-item list-group-item-action">Edgar</a>
+                <a href="http://127.0.0.1:8000/user_players/Fatty" class="list-group-item list-group-item-action">Fatty</a>
+                <a href="http://127.0.0.1:8000/user_players/George" class="list-group-item list-group-item-action">George</a>
+                <a href="http://127.0.0.1:8000/user_players/Harry" class="list-group-item list-group-item-action">Harry</a>
+                <a href="http://127.0.0.1:8000/user_players/Amy" class="list-group-item list-group-item-action">Amy</a>
+                <a href="http://127.0.0.1:8000/user_players/Zeb" class="list-group-item list-group-item-action">Zeb</a>
+                <a href="http://127.0.0.1:8000/user_players/Gump" class="list-group-item list-group-item-action">Gump</a>
+                <a href="http://127.0.0.1:8000/user_players/TomByers" class="list-group-item list-group-item-action">TomByers</a>
+              </div>
+                <div>
+                    <a class="nav-item nav-link" href="http://127.0.0.1:8000/admin/">Admin</a>
+                </div>
+              </ul>
+            </p>
+          </div>
+        </div>
+-->

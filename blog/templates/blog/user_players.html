@@ -1,0 +1,1023 @@
+{% extends "blog/base.html" %}
+{% load humanize %}
+{% load mathfilters %}
+{% load static %}
+<script>
+{% block jquery %}
+var endpoint = '/api/chart/data/'
+var salNineTeen = []
+var salTwentyZero = []
+var salTwentyOne = []
+var salTwentyTwo = []
+var labels = []
+var free_bubble_data = []
+var free_bubble_labels = []
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+<!--        console.log(data)-->
+<!--        console.log(data.customers * 234)-->
+        labels = data.labels
+        salNineTeen = data.default
+        salTwentyZero = data.data_20_21
+        salTwentyOne = data.data_21_22
+        salTwentyTwo = data.data_22_23
+        freeBubbleLabels = data.fa_bubble_labels
+        freeBubbleData = data.fa_bubble_data
+        console.log(data.labels)
+        console.log(data.default)
+        setChart()
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+
+function setChart(){
+     var ctx = document.getElementById('myChart');
+     var ctx2 = document.getElementById('myChart2');
+     var ctx3 = document.getElementById('myChart3');
+     var ctx4 = document.getElementById('myChart4');
+     var ctx5 = document.getElementById('freeChart');
+
+<!-- start of chart Free -->
+        var myChart = new Chart(ctx5, {
+            type: 'bar',
+            data: {
+                labels: freeBubbleLabels,
+                datasets: [{
+                    label: '2019/20 Salary',
+                    data: freeBubbleData,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+
+                scales: {
+
+                        ticks: {
+                            beginAtZero: true
+                        }
+
+                }
+            }
+        });
+<!-- end of chart Free -->
+<!-- start of chart 1 -->
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '# of Votes',
+                    data: salNineTeen,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+
+                scales: {
+
+                        ticks: {
+                            beginAtZero: true
+                        }
+
+                }
+            }
+        });
+<!-- end of chart 1 -->
+<!-- start of chart 2 -->
+        var myChart = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '# of Votes',
+                    data: salTwentyZero,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+
+                scales: {
+                        ticks: {
+                            beginAtZero: true
+                        }
+                }
+            }
+        });
+<!-- end of chart 2 -->
+<!-- start of chart 3 -->
+        var myChart = new Chart(ctx3, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '# of Votes',
+                    data: salTwentyOne,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+<!-- end of chart 3 -->
+<!-- start of chart 4 -->
+        var myChart = new Chart(ctx4, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '# of Votes',
+                    data: salTwentyTwo,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+<!-- end of chart 4 -->
+
+}
+
+<!--var ctx = document.getElementById('myChart');-->
+
+
+{% endblock %}
+</script>
+
+
+{% block content %}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+<!-- fantasy team info -->
+  <div id="grad1" class="card text-white">
+    <div class="card-body text-white">
+      <a class="card-link" data-toggle="collapse" href="#collapseOne">
+          <h3 class="mb-3"><font color=white>{{ view.kwargs.username }} <small class="text-muted">Team Roster ({{ player_count }}/15)  <font color="#25ee56"><i class="fa fa-spinner fa-spin fa-fw"></i></font>
+                                    <span class="sr-only">Loading...</span><font color="#25ee56"><i class="fab fa-bitcoin fa-2x float-right"></i></font></small></font></h3>
+      </a>
+    </div>
+    <div id="collapseOne" class="collapse" data-parent="#accordion">
+        <div class="card-deck">
+            <!-- financial tabs column A -->
+            <div class="card-body pr-0">
+              <!-- overall container -->
+              <div class="card p-1">
+                <!-- Nav pills -->
+                    <h5>Financials</h5>
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link p-1 active" data-toggle="tab" href="#2019_20a">2019/20</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link p-1" data-toggle="tab" href="#2020_21a">2020/21</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link p-1" data-toggle="tab" href="#2021_22a">2021/22</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link p-1" data-toggle="tab" href="#2022_23a">2022/23</a>
+                      </li>
+                    </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div id="2019_20a" class="container tab-pane active">
+                    <div class="card-deck">
+                        <div class="col-sm-6">
+                            <h6>Salary SumX:</h6>
+                                <h6><font color=green>$ {{ sum_of_sal_19_20|floatformat|intcomma }}</font></h6>
+                            <div class="article-metadata"></div>
+                                  {% if 132000000|sub:sum_of_sal_19_20 > 0 %}
+                                    <h6>Salary Cap Space</h6><h6><font color=green>$ {{ 132000000|sub:sum_of_sal_19_20|floatformat|intcomma }}</font></h6>
+                                  {% else %}
+                                    <h6>Salary Cap Space</h6><h6><font color=red>$ {{ 132000000|sub:sum_of_sal_19_20|floatformat|intcomma }}</font></h6>
+                                  {% endif %}
+                        </div>
+                        <div class="col-sm-6">
+                            <h6>Analytics:</h6>
+                            <img class="rounded-circle article-img" src="{% static 'blog/pie_chart_icon_256x256.jpg' %}">
+                        </div>
+                    </div>
+                  </div>
+
+                  <div id="2020_21a" class="container tab-pane fade">
+                    <div class="card-deck">
+                        <div class="col-sm-6">
+                            <h6>Salary Sum:</h6>
+                                <h6><font color=green>${{ sum_of_sal_20_21|intcomma  }}</font></h6>
+                            <div class="article-metadata"></div>
+                                  {% if 132000000|sub:sum_of_sal_20_21 > 0 %}
+                                    <h6>Salary Cap Space</h6><h6><font color=green>${{ 132000000|sub:sum_of_sal_20_21|floatformat|intcomma }}</font></h6>
+                                  {% else %}
+                                    <h6>Salary Cap Space</h6><h6><font color=red>${{ 132000000|sub:sum_of_sal_20_21|floatformat|intcomma }}</font></h6>
+                                  {% endif %}
+                        </div>
+                        <div class="col-sm-6">
+                            <h6>Analytics:</h6>
+                            <img class="rounded-circle article-img" src="{% static 'blog/pie_chart_icon_256x256.jpg' %}">
+                        </div>
+                    </div>
+                  </div>
+
+                  <div id="2021_22a" class="container tab-pane fade">
+                        <h6>Salary Sum:</h6>
+                            <h6><font color=green>${{ sum_of_sal_21_22|floatformat|intcomma  }}</font></h6>
+                    <div class="article-metadata"></div>
+                          {% if 132000000|sub:sum_of_sal_21_22 > 0 %}
+                            <h6>Salary Cap Space</h6><h6><font color=green>${{ 132000000|sub:sum_of_sal_21_22|floatformat|intcomma }}</font></h6>
+                          {% else %}
+                            <h6>Salary Cap Space</h6><h6><font color=red>${{ 132000000|sub:sum_of_sal_21_22|floatformat|intcomma }}</font></h6>
+                          {% endif %}
+                  </div>
+
+                  <div id="2022_23a" class="container tab-pane fade">
+                        <h6>Salary Sum:</h6>
+                            <h6><font color=green>${{ sum_of_sal_22_23|intcomma  }}</font></h6>
+                    <div class="article-metadata"></div>
+                          {% if 132000000|sub:sum_of_sal_22_23 > 0 %}
+                            <h6>Salary Cap Space</h6><h6><font color=green>${{ 132000000|sub:sum_of_sal_22_23|floatformat|intcomma }}</font></h6>
+                          {% else %}
+                            <h6>Salary Cap Space</h6><h6><font color=red>${{ 132000000|sub:sum_of_sal_22_23|floatformat|intcomma }}</font></h6>
+                          {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+  <!-- beginning of drop-down column B -->
+            <div class="card-body pl-0">
+              <!-- overall container -->
+              <div class="card p-1">
+                <!-- Nav pills -->
+                    <h5>Assets</h5>
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link p-1 active" data-toggle="tab" href="#draft_picks">Draft Picks</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link p-1" data-toggle="tab" href="#euros">Euro's</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link p-1" data-toggle="tab" href="#expiring">Expiring</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link p-1" data-toggle="tab" href="#other">Other</a>
+                      </li>
+                    </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div id="draft_picks" class="container tab-pane active">
+                      <br>
+                      <h6>sample text</h6>
+                  </div>
+
+                  <div id="euros" class="container tab-pane fade">
+                      <br>
+                      <h6>sample text</h6>
+                      <br>
+                      <h6>sample text</h6>
+                  </div>
+
+                  <div id="expiring" class="container tab-pane fade">
+                  </div>
+
+                  <div id="other" class="container tab-pane fade">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+<!-- end of columb B -->
+
+        </div>
+    </div>
+  </div>
+<br>
+
+<div class="card-deck">
+<!-- financial tabs aka column 1 -->
+  <!-- overall container -->
+  <div class="card col-sm-4 p-2">
+        <h4 class="article-title">Financials</h4>
+    <!-- Nav pills -->
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link p-1 active" data-toggle="tab" href="#2019_20">2019/20</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#2020_21">2020/21</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#2021_22">2021/22</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#2022_23">2022/23</a>
+          </li>
+        </ul>
+
+    <!-- Tab panes -->
+    <div class="mt-3 tab-content">
+      <div id="2019_20" class="container tab-pane active">
+        <div class="card-deck">
+            <div class="col-sm-6">
+                <h6>Salary Sum:</h6>
+                    <h6><font color=green>$ {{ sum_of_sal_19_20|floatformat|intcomma  }}</font></h6>
+                <div class="article-metadata"></div>
+                      {% if 132000000|sub:sum_of_sal_19_20 > 0 %}
+                        <h6>Salary Cap Space</h6><h6><font color=green>$ {{ 132000000|sub:sum_of_sal_19_20|floatformat|intcomma }}</font></h6>
+                      {% else %}
+                        <h6>Salary Cap Space</h6><h6><font color=red>$ {{ 132000000|sub:sum_of_sal_19_20|floatformat|intcomma }}</font></h6>
+                      {% endif %}
+            </div>
+            <div class="col-sm-6">
+                  <button type="button" class="btn btn-sm btn-outline-success float-right mb-2" data-toggle="modal" data-target="#myModal_19_20">
+                      Analytics
+                  </button>
+                <img class="rounded-circle article-img  float-right" src="{% static 'blog/pie_chart_large.png' %}">
+            </div>
+        </div>
+      </div>
+
+      <div id="2020_21" class="container tab-pane fade">
+        <div class="card-deck">
+            <div class="col-sm-6">
+                <h6>Salary Sum:</h6>
+                    <h6><font color=green>$ {{ sum_of_sal_20_21|floatformat|intcomma  }}</font></h6>
+                <div class="article-metadata"></div>
+                      {% if 132000000|sub:sum_of_sal_20_21 > 0 %}
+                        <h6>Salary Cap Space</h6><h6><font color=green>$ {{ 132000000|sub:sum_of_sal_20_21|floatformat|intcomma }}</font></h6>
+                      {% else %}
+                        <h6>Salary Cap Space</h6><h6><font color=red>$ {{ 132000000|sub:sum_of_sal_20_21|floatformat|intcomma }}</font></h6>
+                      {% endif %}
+            </div>
+            <div class="col-sm-6">
+                  <button type="button" class="btn btn-sm btn-outline-success float-right mb-2" data-toggle="modal" data-target="#myModal_20_21">
+                    Analytics
+                  </button>
+                <img class="rounded-circle article-img  float-right" src="{% static 'blog/pie_chart_large.png' %}">
+            </div>
+        </div>
+      </div>
+
+      <div id="2021_22" class="container tab-pane fade">
+        <div class="card-deck">
+            <div class="col-sm-6">
+                <h6>Salary Sum:</h6>
+                    <h6><font color=green>$ {{ sum_of_sal_21_22|floatformat|intcomma  }}</font></h6>
+                <div class="article-metadata"></div>
+                      {% if 132000000|sub:sum_of_sal_21_22 > 0 %}
+                        <h6>Salary Cap Space</h6><h6><font color=green>$ {{ 132000000|sub:sum_of_sal_21_22|floatformat|intcomma }}</font></h6>
+                      {% else %}
+                        <h6>Salary Cap Space</h6><h6><font color=red>$ {{ 132000000|sub:sum_of_sal_21_22|floatformat|intcomma }}</font></h6>
+                      {% endif %}
+            </div>
+            <div class="col-sm-6">
+                  <button type="button" class="btn btn-sm btn-outline-success float-right mb-2" data-toggle="modal" data-target="#myModal_21_22">
+                    Analytics
+                  </button>
+                <img class="rounded-circle article-img float-right" src="{% static 'blog/pie_chart_icon_256x256.jpg' %}">
+            </div>
+        </div>
+      </div>
+
+      <div id="2022_23" class="container tab-pane fade">
+        <div class="card-deck">
+            <div class="col-sm-6">
+                <h6>Salary Sum:</h6>
+                    <h6><font color=green>$ {{ sum_of_sal_22_23|floatformat|intcomma  }}</font></h6>
+                <div class="article-metadata"></div>
+                      {% if 132000000|sub:sum_of_sal_22_23 > 0 %}
+                        <h6>Salary Cap Space</h6><h6><font color=green>$ {{ 132000000|sub:sum_of_sal_22_23|floatformat|intcomma }}</font></h6>
+                      {% else %}
+                        <h6>Salary Cap Space</h6><h6><font color=red>$ {{ 132000000|sub:sum_of_sal_22_23|floatformat|intcomma }}</font></h6>
+                      {% endif %}
+            </div>
+            <div class="col-sm-6">
+                  <button type="button" class="btn btn-sm btn-outline-success float-right mb-2" data-toggle="modal" data-target="#myModal_22_23">
+                    Analytics
+                  </button>
+                <img class="rounded-circle article-img float-right" src="{% static 'blog/pie_chart_icon_256x256.jpg' %}">
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<br>
+<!-- end of financial tabs aka column 1 -->
+<!-- Beginning of Draft tabs aka column 2 -->
+  <!-- overall container -->
+  <div class="card col-sm-4 p-2">
+        <h4 class="article-title">Draft Picks</h4>
+    <!-- Nav pills -->
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link p-1 active" data-toggle="tab" href="#2_a">2020</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#2_b">2021</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#2_c">2022</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#2_d">2023</a>
+          </li>
+        </ul>
+
+    <!-- Tab panes -->
+    <div class="mt-3 tab-content">
+      <div id="2_a" class="container tab-pane active">
+          <div class="card-deck">
+              <div class="col-sm-6">
+                  <p><span class="fas fa-tag fa-flip-horizontal"></span> Team 1st</p>
+                  <p><span class="fas fa-tag fa-flip-horizontal"></span> Team 2nd</p>
+                  <p><span class="fas fa-tag fa-flip-horizontal"></span> Team 3rd</p>
+              </div>
+              <div class="col-sm-6">
+                  <p><span class="fas fa-tag fa-flip-horizontal"></span> Raskob's 1st</p>
+                  <p><span class="fas fa-tag fa-flip-horizontal"></span> Munley's 2nd</p>
+                  <p><span class="fas fa-tag fa-flip-horizontal"></span> Woods' 3rd</p>
+              </div>
+          </div>
+      </div>
+
+      <div id="2_b" class="container tab-pane fade">
+            <p>b</p>
+            <p>a</p>
+      </div>
+
+      <div id="2_c" class="container tab-pane fade">
+            <p>c</p>
+            <p>a</p>
+      </div>
+
+      <div id="2_d" class="container tab-pane fade">
+            <p>d</p>
+            <p>a</p>
+      </div>
+    </div>
+  </div>
+<br>
+<!-- end of Draft tabs aka column 2 -->
+
+<!-- Beginning of Assets tabs aka column 3 -->
+<!-- overall container -->
+  <div class="card col-sm-4 p-2">
+        <h4 class="article-title">Other Assets</h4>
+    <!-- Nav pills -->
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link p-1 active" data-toggle="tab" href="#3_a">Euros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#3_b">Expiring</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#3_c">Other</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#3_d">
+                <i class="fab fa-bitcoin"></i>
+            </a>
+          </li>
+        </ul>
+
+    <!-- Tab panes -->
+    <div class="mt-3 tab-content">
+      <div id="3_a" class="container tab-pane active">
+        <p>a</p>
+      </div>
+
+      <div id="3_b" class="container tab-pane fade">
+        <p>b</p>
+      </div>
+
+      <div id="3_c" class="container tab-pane fade">
+        <p>c</p>
+      </div>
+
+      <div id="3_d" class="container tab-pane fade">
+        <p><i class="fab fa-btc" aria-hidden="true"></i></p>
+          <i class="fab fa-bitcoin"></i>
+      </div>
+    </div>
+  </div>
+<!-- end of Assets tabs aka column 3 -->
+</div>
+<br>
+
+
+<!-- roster table light attempt 07/09/2020 -->
+<div class="card">
+    <table class="table table-hover table-sm">
+        <thead class="thead-light">
+            <tr>
+              <th>Name</th>
+              <th>2019/20 Salary</th>
+              <th>2020/21 Salary</th>
+              <th>2021/22 Salary</th>
+              <th>2022/23 Salary</th>
+              <th>Actions</th>
+            </tr>
+        </thead>
+      {% for player in players %}
+        <tbody id="myTable">
+            <tr>
+              <td><a href="{% url 'players-detail' player.id %}">{{player.player_full}}</td>
+              <td>$ {{ player.player_sal_19_20|floatformat|intcomma }}</td>
+              <td>$ {{ player.player_sal_20_21|floatformat|intcomma }}</td>
+              <td>$ {{ player.player_sal_21_22|floatformat|intcomma }}</td>
+              <td>$ {{ player.player_sal_22_23|floatformat|intcomma }}</td>
+              <td>
+                  {% if player.player_owner == user %}
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Trade
+                              </button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Propose Trade</a>
+                                <a class="dropdown-item" href="#">Find Trade</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Report a bug!</a>
+                              </div>
+                            </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Release
+                              </button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'players-drop' player.id %}">Drop From Roster</a>
+                                <a class="dropdown-item" href="#">Schedule Drop</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Report a bug!</a>
+                              </div>
+                            </div>
+                        {% endif %}
+              </td>
+            </tr>
+        </tbody>
+      {% endfor %}
+    </table>
+</div>
+<br>
+<!-- end of player table -->
+
+<div class="col-sm-12">
+    <div class="col-sm-4">
+        <canvas id="freeChart" width="400" height="400"></canvas>
+    </div>
+</div>
+
+<!-- here are the pie charts! -->
+<div class="container">
+  <!-- beginning of Modal 2019_20 -->
+  <div class="modal fade" id="myModal_19_20">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">2019/20 Salary Cap Distribution</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- end of modal 2019_20 -->
+  <!-- beginning of modal 2020_21 -->
+  <div class="modal fade" id="myModal_20_21">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">2020/21 Salary Cap Distribution</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+            <canvas id="myChart2" width="400" height="400"></canvas>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- end of modal 2020_21 -->
+  <!-- beginning of modal 2021_22 -->
+  <div class="modal fade" id="myModal_21_22">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+            <canvas id="myChart3" width="400" height="400"></canvas>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- end of modal 2021_22 -->
+  <!-- beginning of modal 2022_23 -->
+  <div class="modal fade" id="myModal_22_23">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+            <canvas id="myChart4" width="400" height="400"></canvas>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- end of modal 2022_23 -->
+</div>
+
+
+
+<!-- Old Player list as article containers now not used
+{% for player in players %}
+            <article class="media content-section">
+                <a href="{% url 'players-detail' player.id %}">
+                    <img class="rounded-circle article-img" src="{{ player.image.url }}">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <a class="small" href="{% url 'players-detail' player.id %}">
+                        {{ player.player_full }}</a> |
+                    <small class="text-muted"><b>Date Created</b> {{ player.date_posted }} |</small>
+                    {% if player.player_owner == user %}
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Trade
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Propose Trade</a>
+                            <a class="dropdown-item" href="#">Find Trade</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Report a bug!</a>
+                          </div>
+                        </div>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Release
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'players-drop' player.id %}">Drop From Roster</a>
+                            <a class="dropdown-item" href="#">Schedule Drop</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Report a bug!</a>
+                          </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <h6><a class="article-title" href="#"></a>
+                    Player Fantasy Team:
+                    <a class="small" href="{% url 'user-players' player.player_owner.username %}">
+                        {{ player.player_owner }}</a>
+                </h6>
+                  <p>2019/20 Salary: {{ player.player_sal_19_20 }}</p>
+                  <p>2020/21 Salary: {{ player.player_sal_20_21 }}</p>
+                  <p>2021/22 Salary: {{ player.player_sal_21_22 }}</p>
+                  <p>2012/23 Salary: {{ player.player_sal_22_23 }}</p>
+              </div>
+            </article>
+    {% endfor %}
+
+------------------
+
+# 4 column financial
+
+<div class="row">
+  <div class="col-sm-3">
+      <p>2019/20</p>
+    <div class="card">
+      <div class="card-body"><h6>Salary Sum</h6><h4><font color=green>${{ sum_of_sal_19_20|intcomma }}</font></h4></div>
+      {% if 132000000|sub:sum_of_sal_19_20 > 0 %}
+        <div class="card-footer"><h6>Salary Cap Space</h6><h4><font color=green>${{ 132000000|sub:sum_of_sal_19_20|intcomma }}</font></h4></div>
+      {% else %}
+        <div class="card-footer"><h6>Salary Cap Space</h6><h4><font color=red>${{ 132000000|sub:sum_of_sal_19_20|intcomma }}</font></h4></div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-sm-3">
+      <p>2020/21</p>
+    <div class="card">
+      <div class="card-body"><h6>Salary Sum</h6><h4><font color=green>${{ sum_of_sal_20_21|intcomma }}</font></h4></div>
+      {% if 132000000|sub:sum_of_sal_20_21 > 0 %}
+        <div class="card-footer"><h6>Salary Cap Space</h6><h4><font color=green>${{ 132000000|sub:sum_of_sal_20_21|intcomma }}</font></h4></div>
+      {% else %}
+        <div class="card-footer"><h6>Salary Cap Space</h6><h4><font color=red>${{ 132000000|sub:sum_of_sal_20_21|intcomma }}</font></h4></div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-sm-3">
+      <p>2021/22</p>
+    <div class="card">
+      <div class="card-body"><h6>Salary Sum</h6><h4><font color=green>${{ sum_of_sal_21_22|intcomma }}</font></h4></div>
+      {% if 132000000|sub:sum_of_sal_21_22 > 0 %}
+        <div class="card-footer"><h6>Salary Cap Space</h6><h4><font color=green>${{ 132000000|sub:sum_of_sal_21_22|intcomma }}</font></h4></div>
+      {% else %}
+        <div class="card-footer"><h6>Salary Cap Space</h6><h4><font color=red>${{ 132000000|sub:sum_of_sal_21_22|intcomma }}</font></h4></div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-sm-3">
+      <p>2022/23</p>
+    <div class="card">
+      <div class="card-body"><h6>Salary Sum</h6><h4><font color=green>${{ sum_of_sal_22_23|intcomma }}</font></h4></div>
+      {% if 132000000|sub:sum_of_sal_22_23 > 0 %}
+        <div class="card-footer"><h6>Salary Cap Space</h6><h4><font color=green>${{ 132000000|sub:sum_of_sal_22_23|intcomma }}</font></h4></div>
+      {% else %}
+        <div class="card-footer"><h6>Salary Cap Space</h6><h4><font color=red>${{ 132000000|sub:sum_of_sal_22_23|intcomma }}</font></h4></div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<br>
+
+
+
+-->
+
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+    {% endif %}
+{% endblock content %}
+
+<!--
+space for temp holding bad code
+-->

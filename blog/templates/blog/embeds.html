@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for team in NbaTeam %}
+        <ul>
+            <li>{{ embed.City }}</li>
+            <li>{{ embed.Name }}</li>
+        </ul>
+        <img src="{{ embed.WikipediaLogoUrl }}" />
+        <br>
+    {% endfor %}
+{% endblock %}

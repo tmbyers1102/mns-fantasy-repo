@@ -1,0 +1,262 @@
+{% extends "blog/base.html" %}
+{% load humanize %}
+{% block content %}
+<h1>{{ player.player_full }} <small class="text-muted">Player Profile</small></h1>
+    <!-- Player header and action buttons -->
+    <article class="media content-section">
+                <img class="rounded-circle article-img" src="{{ player.image.url }}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <small class="text-muted">Status/Owner:</small>
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ player.player_owner }}
+              </button>
+              <div class="dropdown-menu">
+                {% if object.player_owner != None %}
+                    <a class="dropdown-item" href="{% url 'user-players' player.player_owner.username %}">Owner Profile</a>
+                {% endif %}
+                <a class="dropdown-item" href="{% url 'blog-home' %}">League Dashboard</a>
+                <a class="dropdown-item" href="{% url 'blog-players' %}">Free Agents</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Report a bug!</a>
+              </div>
+            </div>
+          <small class="text-muted"> | {{ player.date_posted }}</small>
+            <br><br>
+        </div>
+        <p class="article-content">fa status test:: {{ player.fa_status }}</p>
+      </div>
+
+    {% if object.player_owner == user %}
+        <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Trade</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'players-drop' player.id %}">Release</a>
+        </div>
+    {% endif %}
+    {% if player.player_owner.id == none %}
+        <div>
+            <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'player-updating' player.id %}">Sign</a>
+        </div>
+    {% endif %}
+
+    </article>
+<!-- financial tabs 1 column -->
+  <h4 class="article-title">Financials</h4>
+  <!-- overall container -->
+  <div class="card col-sm-4 p-2">
+    <!-- Nav pills -->
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link p-1 active" data-toggle="tab" href="#2019_20">2019/20</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#2020_21">2020/21</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#2021_22">2021/22</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link p-1" data-toggle="tab" href="#2022_23">2022/23</a>
+          </li>
+        </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div id="2019_20" class="container tab-pane active">
+        <h5>Salary:</h5>
+          <h2><font color=green>${{ player.player_sal_19_20|intcomma  }}</font></h2>
+      </div>
+      <div id="2020_21" class="container tab-pane fade">
+        <h5>Salary:</h5>
+          <h2><font color=green>${{ player.player_sal_20_21|intcomma  }}</font></h2>
+      </div>
+      <div id="2021_22" class="container tab-pane fade">
+        <h5>Salary:</h5>
+          <h2><font color=green>${{ player.player_sal_21_22|intcomma  }}</font></h2>
+      </div>
+      <div id="2022_23" class="container tab-pane fade">
+        <h5>Salary:</h5>
+          <h2><font color=green>${{ player.player_sal_22_23|intcomma  }}</font></h2>
+      </div>
+    </div>
+  </div>
+
+
+<!-- player Current Season Stats table -->
+<br>
+    <h4>Player Current Season Stats</h4>
+    <div class="table-responsive">
+      <table class="table table-dark table-hover table-sm">
+        <thead>
+          <tr>
+              <th>Season</th>
+              <th>Age</th>
+              <th>Tm</th>
+              <th>Lg</th>
+              <th>Pos</th>
+              <th>G</th>
+              <th>GS</th>
+              <th>MP</th>
+              <th>FG</th>
+              <th>FGA</th>
+              <th>FG%</th>
+              <th>3P</th>
+              <th>3PA</th>
+              <th>3P%</th>
+              <th>2P</th>
+              <th>2PA</th>
+              <th>2P%</th>
+              <th>eFG%</th>
+              <th>FT</th>
+              <th>FTA</th>
+              <th>FT%</th>
+              <th>ORB</th>
+              <th>DRB</th>
+              <th>TRB</th>
+              <th>AST</th>
+              <th>STL</th>
+              <th>BLK</th>
+              <th>TOV</th>
+              <th>PF</th>
+              <th>PTS</th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+          <tr>
+              <td>test</td>
+              <td>40</td>
+              <td>#</td>
+              <td>#</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- player Past Season Stats table -->
+<br>
+    <h4>Player Past Seasons Per Game Stats</h4>
+    <div class="table-responsive">
+      <table class="table table-light table-hover table-sm">
+        <thead class="thead-light">
+          <tr>
+              <th>Season</th>
+              <th>Age</th>
+              <th>Tm</th>
+              <th>Lg</th>
+              <th>Pos</th>
+              <th>G</th>
+              <th>GS</th>
+              <th>MP</th>
+              <th>FG</th>
+              <th>FGA</th>
+              <th>FG%</th>
+              <th>3P</th>
+              <th>3PA</th>
+              <th>3P%</th>
+              <th>2P</th>
+              <th>2PA</th>
+              <th>2P%</th>
+              <th>eFG%</th>
+              <th>FT</th>
+              <th>FTA</th>
+              <th>FT%</th>
+              <th>ORB</th>
+              <th>DRB</th>
+              <th>TRB</th>
+              <th>AST</th>
+              <th>STL</th>
+              <th>BLK</th>
+              <th>TOV</th>
+              <th>PF</th>
+              <th>PTS</th>
+          </tr>
+        </thead>
+            <tbody id="myTable">
+              <!-- To make a row turn a color, make <tr> below <tr class="table-success"> -->
+              <tr>
+                  <td>test</td>
+                  <td>40</td>
+                  <td>#</td>
+                  <td>#</td>
+              </tr>
+            </tbody>
+      </table>
+    </div>
+<!-- player Career Stats table -->
+<br>
+    <h4>Player Career Stats</h4>
+<div class="table-responsive">
+  <table class="table table-light table-hover table-sm">
+    <thead>
+      <tr>
+          <th>Games</th>
+          <th>PTS</th>
+          <th>TRB</th>
+          <th>AST</th>
+          <th>FG%</th>
+          <th>FG3%</th>
+          <th>FT%</th>
+          <th>eFG%</th>
+          <th>PER</th>
+          <th>WS</th>
+      </tr>
+    </thead>
+        <tbody>
+          <tr>
+              <td>#</td>
+              <td>#</td>
+              <td>#</td>
+              <td>#</td>
+              <td>#</td>
+              <td>#</td>
+              <td>#</td>
+              <td>#</td>
+          </tr>
+        </tbody>
+  </table>
+</div>
+{% endblock content %}
+
+<!--
+ holder for old code
+
+
+# this is a 4 column salary display
+
+<div class="row">
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">2019/20 Salary:</h6>
+        <h3 class="card-text"><font color=green>${{ player.player_sal_19_20|intcomma  }}</font></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">2020/21 Salary:</h6>
+        <h3 class="card-text"><font color=green>${{ player.player_sal_20_21|intcomma  }}</font></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">2021/22 Salary:</h6>
+        <h3 class="card-text"><font color=green>${{ player.player_sal_21_22|intcomma  }}</font></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">2022/23 Salary:</h6>
+        <h3 class="card-text"><font color=green>${{ player.player_sal_22_23|intcomma  }}</font></h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ -->

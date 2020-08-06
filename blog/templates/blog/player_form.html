@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+        <div class="alert alert-info">
+            <p> {{ user }}  {{ player_count }}/20</p>
+        </div>
+        <div class="content-section">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Adding {{ object.player_full }}</legend>
+                        <img class="rounded-circle article-img" src="{{ object.image.url }}">
+                    <br><br>
+                    {{ form|crispy }}
+                    <h6><kbd>{{ player.player_owner }}</kbd> Current roster count: {{ player.player_count }}/15</h6>
+                    <div class="article-metadata"></div>
+                    <h4>Are you sure you want to add <kbd>{{ object.player_full }}</kbd> to your team?</h4>
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-success" type="submit">Add Player</button>
+                    <a class="btn btn-outline-secondary" href="{% url 'players-detail' object.id %}">Cancel</a>
+                    <a class="btn btn-success" href="{% url 'player-updating' player.id %}">new sign</a>
+                </div>
+            </form>
+        </div>
+{% endblock content %}
+
+<!--
+
+
+------------------------
+    <body>
+        {{form.as_p}}
+    </body>
+-->

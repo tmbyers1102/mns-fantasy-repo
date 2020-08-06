@@ -1,0 +1,240 @@
+{% extends "blog/base.html" %}
+{% load humanize %}
+{% block jquery %}
+<script>
+var endpoint = '/api/chart/data/'
+var free_bubble_data = []
+var free_bubble_labels = []
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+        freeBubbleLabels = data.fa_bubble_labels
+        freeBubbleData = data.fa_bubble_data
+        setChart()
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+
+function setChart(){
+     var ctx = document.getElementById('freeChart');
+
+<!-- start of chart 1 -->
+        var freeChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: freeBubbleLabels,
+                datasets: [{
+                    label: '# of Votes',
+                    data: freeBubbleData,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+
+                scales: {
+
+                        ticks: {
+                            beginAtZero: true
+                        }
+
+                }
+            }
+        });
+<!-- end of chart 1 -->
+}
+
+</script>
+
+
+{% endblock %}
+
+{% block content %}
+  {% for users in guys %}
+        <p>{{ users.get_username }}</p>
+  {% endfor %}
+
+<div class="row">
+        <div class="col">
+            <h1>Free Agents Page</h1>
+        </div>
+        <div class="col">
+            <div><p class="text-right font-weight-light">* All stats = current week</p></div>
+        </div>
+</div>
+<!--<div class="col-sm-12">-->
+<!--    <canvas id="freeChart" width="400" height="400"></canvas>-->
+<!--</div>-->
+
+
+    <div class="search-bar mt-sm-2 mr-2">
+        <form method="get">
+            <input type="text" class="form-control" name="q" id="id_q" placeholder="Search Free Agents...">
+        </form>
+    </div>
+<script type="text/javascript">
+    document.getElementById("id_q").value = "{{ query }}"
+</script>
+  <br>
+<div class="card">
+  <table class="table table-hover table-sm">
+    <thead class="thead-light">
+      <tr>
+        <th>Action</th>
+        <th>Name</th>
+        <th>2019/20 Salary</th>
+        <th>FG%</th>
+        <th>FT%</th>
+        <th>3PM</th>
+        <th>REB</th>
+        <th>AST</th>
+        <th>ATO</th>
+        <th>STL</th>
+        <th>BLK</th>
+        <th>PTS</th>
+
+
+      </tr>
+    </thead>
+
+    {% for player in players %}
+      {% if player.player_owner.id == none %}
+        <tbody id="myTable">
+          <tr>
+            <td>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sign
+                  </button>
+                  <div class="dropdown-menu">
+                    <!-- old version <a class="dropdown-item" href="{% url 'players-update' player.id %}">Sign Now</a> -->
+                    <a class="dropdown-item" href="{% url 'player-updating' player.id %}">Sign</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Report a bug!</a>
+                  </div>
+                </div>
+            </td>
+            <td>
+                <a href="{% url 'players-detail' player.id %}">
+                {{ player.player_full }}
+                 <!-- This is from S/O  <a href="{% url 'player-updating' player.id %}"> Click here to claim this player!</a> -->
+            </td>
+            <td>$ {{ player.player_sal_19_20|floatformat|intcomma }}</td>
+            <td>{{ player.c_week_fg_per|floatformat|intcomma }}</td>
+            <td>{{ player.c_week_ft_per|floatformat|intcomma }}</td>
+            <td>{{ player.c_week_3pm|floatformat|intcomma }}</td>
+            <td>{{ player.c_week_reb|floatformat|intcomma }}</td>
+            <td>{{ player.c_week_ast|floatformat|intcomma }}</td>
+            <td>{{ player.c_week_ato|floatformat|intcomma }}</td>
+            <td>{{ player.c_week_stl|floatformat|intcomma }}</td>
+            <td>{{ player.c_week_blk|floatformat|intcomma }}</td>
+            <td>{{ player.c_week_pts|floatformat|intcomma }}</td>
+
+          </tr>
+        </tbody>
+      {% endif %}
+    {% endfor %}
+  </table>
+</div>
+
+
+    {% if is_paginated %}
+        {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+    {% endif %}
+{% endblock content %}
+
+<!--
+'''
+# This is the old container version of displaying the FA's which was replaced by a table 07/07/2020
+
+   {% for player in players %}
+        {% if player.player_owner.id == 26 %}
+            <article class="media content-section">
+                <a href="{% url 'players-detail' player.id %}">
+                    <img class="rounded-circle article-img" src="{{ player.image.url }}">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <a class="small" href="{% url 'players-detail' player.id %}">
+                        {{ player.player_full }}</a> |
+                  <small class="text-muted">Date Created {{ player.date_posted }} |</small>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sign
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'players-update' player.id %}">Sign Now</a>
+                            <a class="dropdown-item" href="#">Find Trade</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Report a bug!</a>
+                          </div>
+                        </div>
+                </div>
+                <h6><a class="article-title" href="#"></a>
+                    Player Fantasy Team:
+                    <a class="small" href="{% url 'user-players' player.player_owner.username %}">
+                        {{ player.player_owner }}</a>
+                </h6>
+              </div>
+            </article>
+        {% endif %}
+    {% endfor %}
+-->

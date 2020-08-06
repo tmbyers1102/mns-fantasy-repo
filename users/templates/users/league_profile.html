@@ -1,0 +1,127 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ object.image.url }}">
+    <div class="container">
+        <h1>{{ object.fantasy_league_name }}</h1>
+        <h4>League Dashboard</h4>
+    </div>
+</article>
+<div class="article-metadata">
+  <a class="mr-2" href="#">League Teams</a>
+  <small class="text-muted">Season: </small>
+</div>
+<div class="card-columns">
+    <div class="card bg-light text-center">
+        <img class="rounded-circle article-img" src="{{ object.league_team_1.image.url }}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ object.league_team_1 }}</a>
+        </div>
+        <div><small class="text-muted">Team Users: {{ team.users }}</small></div>
+        <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-light text-center">
+        <img class="rounded-circle article-img" src="{{ object.league_team_2.image.url }}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ object.league_team_2 }}</a>
+        </div>
+        <div><small class="text-muted">Team Users: {{ object.team.users }}</small></div>
+        <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-light text-center">
+        <img class="rounded-circle article-img" src="{{ object.league_team_3.image.url }}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ object.league_team_3 }}</a>
+        </div>
+        <div><small class="text-muted">Team Users: {{ team.users }}</small></div>
+        <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-light text-center">
+        <img class="rounded-circle article-img" src="{{ object.league_team_4.image.url }}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ object.league_team_4 }}</a>
+        </div>
+        <div><small class="text-muted">Team Users: {{ team.users }}</small></div>
+        <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-light text-center">
+        <img class="rounded-circle article-img" src="{{ object.league_team_5.image.url }}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ object.league_team_5 }}</a>
+        </div>
+        <div><small class="text-muted">Team Users: {{ team.users }}</small></div>
+        <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-light text-center">
+        <img class="rounded-circle article-img" src="{{ object.league_team_6.image.url }}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ object.league_team_6 }}</a>
+        </div>
+        <div><small class="text-muted">Team Users: {{ team.users }}</small></div>
+        <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-light text-center">
+        <img class="rounded-circle article-img" src="{{ object.league_team_7.image.url }}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ object.league_team_7 }}</a>
+        </div>
+        <div><small class="text-muted">Team Users: {{ team.users }}</small></div>
+        <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-light text-center">
+        <img class="rounded-circle article-img" src="{{ object.league_team_8.image.url }}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a class="mr-2" href="#">{{ object.league_team_8 }}</a>
+        </div>
+        <div><small class="text-muted">Team Users: {{ team.users }}</small></div>
+        <div>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}">Update</a>
+            <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock content %}

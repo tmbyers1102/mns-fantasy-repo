@@ -1,0 +1,6 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    {% for player in player_list %}
+        {{player.name}} -- <a href="/player/{{player.id}}/update"> Click here to claim this player!</a>
+    {% endfor %}
+{% endblock content %}
