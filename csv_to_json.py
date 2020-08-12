@@ -3,7 +3,7 @@
 import csv, json
 
 csvFilePath = "players.csv"
-jsonFilePath = "players_done.json"
+jsonFilePath = "players_done_1.json"
 
 # read CSV and add data to dictionary
 data = {}
